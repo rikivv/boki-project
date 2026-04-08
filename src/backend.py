@@ -12,13 +12,14 @@ You are concise and helpful.
 
 def build_tool_prompt(tools):
     tool_descriptions = ""
-    args_desc = "no arguments"
 
     for name, tool in tools.items():
         args = tool.get("arguments", {})
 
         if args:
             args_desc = ", ".join([f"{k}: {v}" for k, v in args.items()])
+        else:
+            args_desc = "no arguments"
         tool_descriptions += f"- {name}({args_desc}): {tool['description']}\n"
 
     return f"""
@@ -68,4 +69,4 @@ def getRequest():
     print(request_response["timings"])
 
 if __name__ == "__main__":
-    getRequest()
+    print(build_tool_prompt(tools))
