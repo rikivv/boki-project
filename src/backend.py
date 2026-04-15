@@ -1,6 +1,7 @@
 import requests
-from tools import tools
+from tools import TOOLS
 
+#TODO: Change format specification to match https://www.llama.com/docs/model-cards-and-prompt-formats/llama3_1/
 url = "http://127.0.0.1:8080/v1/chat/completions"
 
 
@@ -13,14 +14,8 @@ You are concise and helpful.
 def build_tool_prompt(tools):
     tool_descriptions = ""
 
-    for name, tool in tools.items():
-        args = tool.get("arguments", {})
-
-        if args:
-            args_desc = ", ".join([f"{k}: {v}" for k, v in args.items()])
-        else:
-            args_desc = "no arguments"
-        tool_descriptions += f"- {name}({args_desc}): {tool['description']}\n"
+    for tool in tools:
+        tool_descriptions += f"{tool}\n"
 
     return f"""
 You have access to the following tools:
@@ -46,7 +41,7 @@ If no tool is needed, respond normally in plain text.
 
 
 def getRequest():
-    user_prompt = "what day is it?"
+    user_prompt = "can you show me how you would use one of your tools?"
 
     data = {
         "model": "local-model",
@@ -69,4 +64,5 @@ def getRequest():
     print(request_response["timings"])
 
 if __name__ == "__main__":
-    print(build_tool_prompt(tools))
+    print(build_tool_prompt(TOOLS))
+    #getRequest()

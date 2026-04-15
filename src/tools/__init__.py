@@ -1,9 +1,18 @@
+import json
+
 from .basic import oi
 
-tools = {
-    "oi": {
-        "function": oi,
-        "description": "prints greeting",
-        "arguments": {}
-    }
-}
+TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "oi",
+            "description": "prints greeting",
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        }
+    },
+]
