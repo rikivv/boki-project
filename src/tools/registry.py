@@ -1,15 +1,5 @@
 import json
 
-from .basic import oi, get_current_temperature
-
-def get_function_from_name(name):
-    if name == "oi":
-        return oi
-    if name == "get_current_temperature":
-        return get_current_temperature
-    
-    return 
-
 TOOLS = [
     {
         "type": "function",
