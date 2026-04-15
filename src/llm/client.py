@@ -6,17 +6,30 @@ class LLMClient:
     def __init__(self):
         self.url = URL
 
-    def make_request(self, user_prompt: str):
+    def make_request(self, userPrompt: str):
         data = {
             "model": "local-model",
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "system", "content": self.build_tool_prompt(TOOLS)},
-                {"role": "user", "content": user_prompt},
-                # {"role": "assistant", "content": '<function=get_current_temperature>{"location": "Porto, Portugal", "unit": "celsius"}</function>'},
-                # {"role": "user", "content": 'Tool result: {"temperature": 26.1,"location": "Porto","unit": "celsius",}'}
+                {"role": "user", "content": userPrompt},
             ],
             #"max_tokens": 100,
+        }
+
+        response = requests.post(self.url, json=data)
+        return response.json()
+    
+    def make_request_tool_call(self, userPrompt: str, toolCall: str, toolResult: str):
+        data = {
+            "model": "local-model",
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": self.build_tool_prompt(TOOLS)},
+                {"role": "user", "content": userPrompt},
+                {"role": "assistant", "content": f'{toolCall}'},
+                {"role": "user", "content": f'Tool result: {toolResult}'}
+            ],
         }
 
         response = requests.post(self.url, json=data)
