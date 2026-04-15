@@ -5,17 +5,20 @@ from tools import TOOLS
 url = "http://127.0.0.1:8080/v1/chat/completions"
 
 
-system_prompt = """
+SYSTEM_PROMPT = """
 You are a friendly personal assistant.
 You are concise and helpful.
 """
+
+NO_THINK = "/no_think"
+THINK = "/think"
 
 
 def build_tool_prompt(tools):
     tool_descriptions = ""
 
     for tool in tools:
-        tool_descriptions += f"{tool}\n"
+        tool_descriptions += f"- {tool}\n"
 
     return f"""
 You have access to the following tools:
@@ -28,26 +31,28 @@ Decide whether a tool is necessary to answer the user's request.
 - If the request can be answered directly with your own knowledge, DO NOT use a tool.
 - Do NOT force tool usage.
 
-If you choose to use a tool, respond ONLY with valid JSON in this format:
-{{
-    "tool": "tool_name",
-    "arguments": {{
-        "arg1": "value"
-    }}
-}}
+If a you choose to call a function ONLY reply in the following format:
+<{{start_tag}}={{function_name}}>{{parameters}}{{end_tag}}
+where
+
+start_tag => '<function'
+parameters => a JSON dict with the function argument name as key and function argument value as value.
+end_tag => '</function>'
+
+Here is an example,
+<function=example_function_name>{{"example_name": "example_value"}}</function>
 
 If no tool is needed, respond normally in plain text.
 """
 
 
-def getRequest():
-    user_prompt = "can you show me how you would use one of your tools?"
+def make_request(user_prompt: str):
 
     data = {
         "model": "local-model",
         "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "system", "content": build_tool_prompt(tools)},
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": build_tool_prompt(TOOLS)},
             {"role": "user", "content": user_prompt},
         ],
         #"max_tokens": 100,
@@ -57,12 +62,22 @@ def getRequest():
 
     request_response = request.json()
 
-    print(f"User Prompt: {user_prompt}\n")
     print("---------------------------------\n")
     print(request_response["choices"][0]["message"]["content"])
     print()
     print(request_response["timings"])
 
+
+def send_message(input: str):
+
+    input = input.strip()
+    input = input + " " + NO_THINK
+
+    make_request(input)
+
+
 if __name__ == "__main__":
-    print(build_tool_prompt(TOOLS))
-    #getRequest()
+    #print(build_tool_prompt(TOOLS))
+    #get_request()
+    message = input("User Prompt: ")
+    send_message(message)
