@@ -9,11 +9,14 @@ def send_message(user_input: str):
     user_input = user_input.strip() + " " + NO_THINK
     response = client.make_request(user_input)
 
-    # responseMessage = client.get_response_message(response)
+    responseMessage = client.get_response_message(response)
 
-    # if "<function=" in responseMessage:
-    #     print("opa tem coisa aki!!")
-    #     # toolExecutor.execute
+    if "<function=" in responseMessage:
+        print("opa tem coisa aki!!")
+        toolResult = toolExecutor.execute(responseMessage)
+        print(toolResult)
+
+        response = client.make_request_tool_call(user_input, responseMessage, toolResult)
 
     client.print_response(response)
 

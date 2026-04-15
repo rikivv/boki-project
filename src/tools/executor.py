@@ -30,7 +30,9 @@ class ToolExecutor:
     def get_function_from_name(self, name: str):
         return self.tool_map.get(name)
 
-    def execute(self, name: str, args: dict):
+    def execute(self, toolCall: str):
+        name, args = self.parse_tool_call(toolCall)
+
         func = self.get_function_from_name(name)
 
         if not func:
