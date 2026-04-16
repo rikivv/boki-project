@@ -4,6 +4,10 @@ __pycache__/
 *.pyo
 *.pyd
 
+# Google API secrets
+credentials/
+*.json
+
 # Virtual environments
 venv/
 .env/

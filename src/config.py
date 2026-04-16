@@ -1,3 +1,10 @@
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+GOOGLE_CREDENTIALS_PATH = os.path.join(BASE_DIR, "credentials", "google_credentials.json")
+GOOGLE_TOKEN_PATH = os.path.join(BASE_DIR, "credentials", "token.json")
+
 URL = "http://127.0.0.1:8080/v1/chat/completions"
 
 NO_THINK = "/no_think"
