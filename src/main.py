@@ -12,13 +12,12 @@ def send_message(user_input: str):
     responseMessage = client.get_response_message(response)
 
     if "<function=" in responseMessage:
-        print("opa tem coisa aki!!")
         toolResult = toolExecutor.execute(responseMessage)
-        print(toolResult)
+        #print(toolResult)
 
         response = client.make_request_tool_call(user_input, responseMessage, toolResult)
 
-    client.print_response(response)
+    client.print_response(response, True)
 
     return response
 
