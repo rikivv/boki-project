@@ -4,7 +4,7 @@
 
 This project started as an experiment: running a local LLM and accessing it from within a Minecraft server using a Lua program (via ComputerCraft). As my experience with programming, networking, and system design grew, I expanded the original idea into a more flexible and powerful assistant.
 
-The goal of Boki is to explore how far a self-hosted LLM can go as an interactive system—handling requests, calling tools, and integrating with external environments—while remaining fully under the user's control.
+The goal of Boki is to explore how far a self-hosted LLM can go as an interactive system—handling requests, calling tools, and integrating with external environments, while remaining fully under the user's control.
 
 This project combines my interests in:
 
