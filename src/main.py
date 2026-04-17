@@ -1,9 +1,11 @@
 from llm.client import LLMClient
 from tools.executor import ToolExecutor
+from integrations.google_calendar.client import GoogleCalendarClient
 from config import NO_THINK
 
 client = LLMClient()
 toolExecutor = ToolExecutor()
+googleCalendarClient = GoogleCalendarClient()
 
 def send_message(user_input: str):
     user_input = user_input.strip() + " " + NO_THINK
