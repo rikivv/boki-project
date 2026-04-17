@@ -36,3 +36,13 @@ class GoogleCalendarClient:
                 token.write(self.credentials.to_json())
         else:
             print("[GOOGLE_CALENDAR_CLIENT] User already authenticated and token is valid.")
+
+    def get_service(self):
+        if not self.credentials:
+            self.auth()
+
+        try:
+            service = build("calendar","v3", credentials=self.credentials)
+            return service
+        except:
+            print("[GOOGLE_CALENDAR_CLIENT] Error when getting the service")
