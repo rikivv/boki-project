@@ -7,7 +7,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from  src.config import GOOGLE_CREDENTIALS_PATH, GOOGLE_TOKEN_PATH
+from config import GOOGLE_CREDENTIALS_PATH, GOOGLE_TOKEN_PATH
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
