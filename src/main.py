@@ -2,6 +2,7 @@ from llm.client import LLMClient
 from tools.executor import ToolExecutor
 from integrations.google_calendar.client import GoogleCalendarClient
 from config import NO_THINK
+from tools.registry import TOOLS
 
 client = LLMClient()
 toolExecutor = ToolExecutor()
@@ -25,6 +26,7 @@ def send_message(user_input: str):
 
 
 if __name__ == "__main__":
+    print(client.build_tool_prompt(TOOLS))
     message = input("\nUser Prompt: ")
     response = send_message(message)
     #print(response)

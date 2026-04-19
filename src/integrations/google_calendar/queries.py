@@ -1,6 +1,11 @@
 import datetime
 
-def calendar_get_next_n_events(service, n: int):
+from integrations.google_calendar.client import GoogleCalendarClient
+
+client = GoogleCalendarClient()
+service = client.get_service()
+
+def calendar_get_next_n_events(n: int):
     events = []
     now = datetime.datetime.now(tz=datetime.timezone.utc).isoformat()
 

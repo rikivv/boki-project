@@ -36,4 +36,22 @@ TOOLS = [
             },
         },
     },
+
+    {
+        "type": "function",
+        "function": {
+            "name": "calendar_get_next_n_events",
+            "description": "Get the next N upcoming events from the user's primary Google Calendar.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "n": {
+                        "type": "integer",
+                        "description": "The number of upcoming events to retrieve from the current time."
+                    }
+                },
+                "required": ["n"]
+            }
+        }
+    }
 ]
