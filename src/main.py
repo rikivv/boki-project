@@ -6,10 +6,9 @@ from tools.registry import TOOLS
 
 client = LLMClient()
 toolExecutor = ToolExecutor()
-googleCalendarClient = GoogleCalendarClient()
 
 def send_message(user_input: str):
-    user_input = user_input.strip() + " " + NO_THINK
+    user_input = user_input.strip()
     response = client.make_request(user_input)
 
     responseMessage = client.get_response_message(response)
@@ -26,7 +25,7 @@ def send_message(user_input: str):
 
 
 if __name__ == "__main__":
-    print(client.build_tool_prompt(TOOLS))
+    #print(client.build_tool_prompt(TOOLS))
     message = input("\nUser Prompt: ")
     response = send_message(message)
     #print(response)

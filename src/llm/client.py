@@ -17,7 +17,9 @@ class LLMClient:
             #"max_tokens": 100,
         }
 
+        print("[LLM_CLIENT] Sending message to LLM API...")
         response = requests.post(self.url, json=data)
+        print("[LLM_CLIENT] Received message from LLM API.")
         return response.json()
     
     def make_request_tool_call(self, userPrompt: str, toolCall: str, toolResult: str):
@@ -32,7 +34,9 @@ class LLMClient:
             ],
         }
 
+        print("[LLM_CLIENT] Sending tool call to LLM API...")
         response = requests.post(self.url, json=data)
+        print("[LLM_CLIENT] Received tool response from LLM API.")
         return response.json()
     
     def print_response(self, response, debug: bool = False):
@@ -73,9 +77,9 @@ If a you choose to call a function ONLY reply in the following format:
 <{{start_tag}}{{function_name}}>{{parameters}}{{end_tag}}
 where
 
-start_tag => '<function'
+start_tag => "<function="
 parameters => a JSON dict with the function argument name as key and function argument value as value.
-end_tag => '</function>'
+end_tag => "</function>"
 
 Here is an example,
 <function=example_function_name>{{"example_name": "example_value"}}</function>

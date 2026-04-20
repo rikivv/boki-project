@@ -40,4 +40,8 @@ class ToolExecutor:
         if not func:
             raise ValueError(f"Tool '{name}' not found")
 
-        return func(**args)
+        print("[TOOL_EXECUTOR] Executing tool...")
+        response = func(**args)
+        print("[TOOL_EXECUTOR] Tool Executed.")
+        
+        return response
