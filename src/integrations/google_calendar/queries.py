@@ -1,7 +1,7 @@
 import datetime
 
 from integrations.google_calendar.client import GoogleCalendarClient
-from integrations.google_calendar.config import COLORS
+from config import COLORS
 
 client = GoogleCalendarClient()
 service = client.get_service()

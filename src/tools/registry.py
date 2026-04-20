@@ -1,6 +1,6 @@
 import json
 
-from integrations.google_calendar.config import COLORS
+from config import COLORS
 
 TOOLS = [
     {

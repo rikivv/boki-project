@@ -17,39 +17,6 @@ class LLMClient:
         print("[LLM_CLIENT] Received message from LLM API.")
 
         return response.json()
-
-    # def make_request(self, userPrompt: str):
-    #     data = {
-    #         "model": "local-model",
-    #         "messages": [
-    #             {"role": "system", "content": SYSTEM_PROMPT},
-    #             {"role": "system", "content": self.build_tool_prompt(TOOLS)},
-    #             {"role": "user", "content": userPrompt},
-    #         ],
-    #         #"max_tokens": 100,
-    #     }
-
-    #     print("[LLM_CLIENT] Sending message to LLM API...")
-    #     response = requests.post(self.url, json=data)
-    #     print("[LLM_CLIENT] Received message from LLM API.")
-    #     return response.json()
-    
-    def make_request_tool_call(self, userPrompt: str, toolCall: str, toolResult: str):
-        data = {
-            "model": "local-model",
-            "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "system", "content": self.build_tool_prompt(TOOLS)},
-                {"role": "user", "content": userPrompt},
-                {"role": "assistant", "content": f'{toolCall}'},
-                {"role": "user", "content": f'Tool result: {toolResult}'}
-            ],
-        }
-
-        print("[LLM_CLIENT] Sending tool call to LLM API...")
-        response = requests.post(self.url, json=data)
-        print("[LLM_CLIENT] Received tool response from LLM API.")
-        return response.json()
     
     def print_response(self, response, debug: bool = False):
         print("---------------------------------")
