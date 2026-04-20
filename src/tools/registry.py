@@ -80,7 +80,7 @@ TOOLS = [
                     "color": {
                         "type": "string",
                         "enum": list(COLORS.keys()),
-                        "description": "An optional color ID for the event, ranging from 0 to 11."
+                        "description": "Category of the event, mapped internally to a calendar color."
                     },
                     "description": {
                         "type": "string",

@@ -6,21 +6,33 @@ class LLMClient:
     def __init__(self):
         self.url = URL
 
-    def make_request(self, userPrompt: str):
+    def make_request(self, messages: list):
         data = {
             "model": "local-model",
-            "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "system", "content": self.build_tool_prompt(TOOLS)},
-                {"role": "user", "content": userPrompt},
-            ],
-            #"max_tokens": 100,
+            "messages": messages,
         }
 
         print("[LLM_CLIENT] Sending message to LLM API...")
         response = requests.post(self.url, json=data)
         print("[LLM_CLIENT] Received message from LLM API.")
+
         return response.json()
+
+    # def make_request(self, userPrompt: str):
+    #     data = {
+    #         "model": "local-model",
+    #         "messages": [
+    #             {"role": "system", "content": SYSTEM_PROMPT},
+    #             {"role": "system", "content": self.build_tool_prompt(TOOLS)},
+    #             {"role": "user", "content": userPrompt},
+    #         ],
+    #         #"max_tokens": 100,
+    #     }
+
+    #     print("[LLM_CLIENT] Sending message to LLM API...")
+    #     response = requests.post(self.url, json=data)
+    #     print("[LLM_CLIENT] Received message from LLM API.")
+    #     return response.json()
     
     def make_request_tool_call(self, userPrompt: str, toolCall: str, toolResult: str):
         data = {
@@ -45,12 +57,10 @@ class LLMClient:
         if debug:
             print()
             print(response)
-
-        print(self.get_response_message(response))
-
-        if debug:
             print()
             print(self.get_response_timings(response))
+        else:
+            print(self.get_response_message(response))
 
         print("---------------------------------\n")
 
