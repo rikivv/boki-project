@@ -77,7 +77,7 @@ TOOLS = [
                         "type": "string",
                         "description": "The end date and time of the event in ISO 8601 format."
                     },
-                    "colorIndex": {
+                    "color": {
                         "type": "string",
                         "enum": list(COLORS.keys()),
                         "description": "An optional color ID for the event, ranging from 0 to 11."
@@ -95,7 +95,7 @@ TOOLS = [
                         "description": "The timezone for the event (e.g., 'Europe/Lisbon'). Defaults to 'Europe/Lisbon'."
                     }
                 },"calendar_create_event"
-                "required": ["name", "startTime", "endTime"]
+                "required": ["name", "startTime", "endTime", "color"]
             }
         }
     }
