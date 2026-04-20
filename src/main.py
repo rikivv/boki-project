@@ -20,13 +20,13 @@ def send_message(user_input: str):
 
         response = client.make_request_tool_call(user_input, responseMessage, toolResult)
 
-    client.print_response(response, True)
+    client.print_response(response)
 
     return response
 
 
 if __name__ == "__main__":
-    print(client.build_tool_prompt(TOOLS))
+    #print(client.build_tool_prompt(TOOLS))
     message = input("\nUser Prompt: ")
     response = send_message(message)
     #print(response)

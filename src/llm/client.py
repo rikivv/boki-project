@@ -38,6 +38,10 @@ class LLMClient:
     def print_response(self, response, debug: bool = False):
         print("---------------------------------")
 
+        if debug:
+            print()
+            print(response)
+
         print(self.get_response_message(response))
 
         if debug:

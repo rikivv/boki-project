@@ -17,6 +17,7 @@ and serves as a playground for experimenting with real-world AI applications.
 ## Getting Started (WIP)
 
 ```bash
+./llama.cpp/build/bin/llama-server -m models/gemma-4-E2B-it-Q5_K_M.gguf -ngl 99
 ./llama.cpp/build/bin/llama-server -ngl 22 -m ~/models/Qwen3-8B-Q4_K_M.gguf
 ```
 
@@ -28,6 +29,7 @@ and serves as a playground for experimenting with real-world AI applications.
 | LLaMA 3.1 8b Q4 | 20-21 | ~16 |
 | LLaMA 3.1 8b Q3 | 25 | ~20 |
 | Qwen 3 8b Q4 | 21-22 | ~15 |
+| Gemma 4 E2B | all | ~73 |
 
 ## Features
 
