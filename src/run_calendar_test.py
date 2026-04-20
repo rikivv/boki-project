@@ -2,7 +2,13 @@ from integrations.google_calendar.client import GoogleCalendarClient
 from integrations.google_calendar import queries
 
 
-events = queries.calendar_get_next_n_events(n=2)
+client = GoogleCalendarClient()
+service = client.get_service()
 
-for event in events:
-    print(event["summary"])
+events = queries.calendar_get_next_n_events(n=5)
+
+colors = service.colors().get().execute()
+
+queries.calendar_create_event("oi", 123, 123, 123)
+
+#print(colors)

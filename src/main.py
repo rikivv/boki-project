@@ -4,31 +4,19 @@ from integrations.google_calendar.client import GoogleCalendarClient
 from config import NO_THINK
 from tools.registry import TOOLS
 
-client = LLMClient()
-toolExecutor = ToolExecutor()
-googleCalendarClient = GoogleCalendarClient()
+from chat_instance import ChatInstance
 
-def send_message(user_input: str):
-    user_input = user_input.strip() + " " + NO_THINK
-    response = client.make_request(user_input)
-
-    responseMessage = client.get_response_message(response)
-
-    if "<function=" in responseMessage:
-        toolResult = toolExecutor.execute(responseMessage)
-        #print(toolResult)
-
-        response = client.make_request_tool_call(user_input, responseMessage, toolResult)
-
-    client.print_response(response)
-
-    return response
-
+chatInstance = ChatInstance()
 
 if __name__ == "__main__":
     #print(client.build_tool_prompt(TOOLS))
     message = input("\nUser Prompt: ")
-    response = send_message(message)
+    print()
+    print(chatInstance.history)
+    message = {"role": "user", "content": "oi gente"}
+    chatInstance.add_to_history(message)
+    print(chatInstance.history)
+    #response = chatInstance.send_message(message)
     #print(response)
     #print(toolExecutor.parse_tool_call(response["choices"][0]["message"]["content"]))
 
