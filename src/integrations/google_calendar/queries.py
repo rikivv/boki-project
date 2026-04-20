@@ -1,6 +1,7 @@
 import datetime
 
 from integrations.google_calendar.client import GoogleCalendarClient
+from integrations.google_calendar.config import COLORS
 
 client = GoogleCalendarClient()
 service = client.get_service()
@@ -17,33 +18,53 @@ def calendar_get_next_n_events(n: int):
             orderBy="startTime",
         ).execute()
 
-    events = event_results.get("items", [])
+    events = event_results.get("items", []
+    )
 
     return events
 
-def calendar_create_event(name: str, startTime, endTime, colorIndex: int):
+def calendar_create_event(
+    name: str,
+    startTime: str,
+    endTime: str,
+    color: str = "misc",
+    description: str = "",
+    location: str = "",
+    timezone: str = "Europe/Lisbon",
+    ):
+
+    colorIndex = COLORS.get(color, 0)
 
     event = {
-        'summary': f'{name}',
-        'location': '800 Howard St., San Francisco, CA 94103',
-        'description': 'A chance to hear more about Google\'s developer products.',
-        'start': {
-            'dateTime': '2026-04-21T09:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
+        "summary": name,
+        "location": location,
+        "description": description,
+        "start": {
+            "dateTime": startTime,
+            "timeZone": timezone,
         },
-        'end': {
-            'dateTime': '2026-04-21T17:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
+        "end": {
+            "dateTime": endTime,
+            "timeZone": timezone,
         },
-        'reminders': {
-            'useDefault': False,
-            'overrides': [
-                {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 10},
+        "reminders": {
+            "useDefault": False,
+            "overrides": [
+                {"method": "popup", "minutes": 10},
             ],
         },
-        'colorId': "3",
     }
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    return "oi"
+    if 0 <= colorIndex <= 11:
+        event["colorId"] = str(colorIndex)
+
+    created_event = service.events().insert(
+        calendarId="primary",
+        body=event
+    ).execute()
+
+    return {
+        "id": created_event.get("id"),
+        "link": created_event.get("htmlLink"),
+        "summary": created_event.get("summary"),
+    }

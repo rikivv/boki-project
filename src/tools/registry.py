@@ -1,5 +1,7 @@
 import json
 
+from integrations.google_calendar.config import COLORS
+
 TOOLS = [
     {
         "type": "function",
@@ -51,6 +53,49 @@ TOOLS = [
                     }
                 },
                 "required": ["n"]
+            }
+        }
+    },
+
+    {
+        "type": "function",
+        "function": {
+            "name": "calendar_create_event",
+            "description": "Create a new event in the user's primary Google Calendar.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The title or summary of the calendar event."
+                    },
+                    "startTime": {
+                        "type": "string",
+                        "description": "The start date and time of the event in ISO 8601 format."
+                    },
+                    "endTime": {
+                        "type": "string",
+                        "description": "The end date and time of the event in ISO 8601 format."
+                    },
+                    "colorIndex": {
+                        "type": "string",
+                        "enum": list(COLORS.keys()),
+                        "description": "An optional color ID for the event, ranging from 0 to 11."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "An optional description for the event."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "An optional location for the event."
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "The timezone for the event (e.g., 'Europe/Lisbon'). Defaults to 'Europe/Lisbon'."
+                    }
+                },"calendar_create_event"
+                "required": ["name", "startTime", "endTime"]
             }
         }
     }

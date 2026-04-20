@@ -39,13 +39,13 @@
 # '10': {'background': '#51b749', 'foreground': '#1d1d1d'}, 
 # '11': {'background': '#dc2127', 'foreground': '#1d1d1d'},
 
-### Actual ###
 
 COLORS = {
-    "classes": 19,
-    "projects": 6,
-    "tests": 3,
-    
-
-    "miscelanious": "#4444ff"
+    "misc": 1,
+    "doctor_appointment": 3,
+    "theory_classes": 4,
+    "practical_classes": 5,
+    "other_classes": 7,
+    "projects": 10,
+    "exams_or_tests": 11,
 }

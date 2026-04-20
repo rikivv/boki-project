@@ -2,7 +2,7 @@ import re
 import json
 
 from .basic import oi, get_current_temperature
-from integrations.google_calendar.queries import calendar_get_next_n_events
+from integrations.google_calendar.queries import calendar_get_next_n_events, calendar_create_event
 
 class ToolExecutor:
     def __init__(self):
@@ -10,6 +10,7 @@ class ToolExecutor:
             "oi": oi,
             "get_current_temperature": get_current_temperature,
             "calendar_get_next_n_events": calendar_get_next_n_events,
+            "calendar_create_event": calendar_create_event,
         }
 
     def parse_tool_call(self, response: str):
