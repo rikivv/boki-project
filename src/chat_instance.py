@@ -36,7 +36,7 @@ class ChatInstance:
 
         current_time_message = {
             "role": "system",
-            "content": f"Current datetime: {datetime.now().astimezone().isoformat()}"
+            "content": f"Current datetime: {datetime.now().astimezone().strftime('%A, %Y-%m-%dT%H:%M:%S%z')}"
         }
 
         messages = self.system_messages + [current_time_message] + self.history

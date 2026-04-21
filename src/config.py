@@ -46,10 +46,11 @@ You are concise and helpful.
 
 COLORS = {
     "misc": 1,
+    "meetings": 2,
     "doctor_appointment": 3,
     "theory_classes": 4,
     "practical_classes": 5,
     "other_classes": 7,
-    "projects": 10,
+    "project_deadlines": 10,
     "exams_or_tests": 11,
 }
