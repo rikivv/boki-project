@@ -18,6 +18,8 @@ class ChatInstance:
             {"role": "system", "content": client.build_tool_prompt(TOOLS)},
         ]
 
+        self.debug = False
+
     def send(self, user_input: str):
         user_input = user_input.strip()
 
@@ -39,7 +41,7 @@ class ChatInstance:
 
         messages = self.system_messages + [current_time_message] + self.history
 
-        response = client.make_request(messages)
+        response = client.make_request(messages, self.debug)
         response_message = client.get_response_message(response)
 
         while "<function=" in response_message:
@@ -57,7 +59,7 @@ class ChatInstance:
 
             messages = self.system_messages + [current_time_message] + self.history
 
-            response = client.make_request(messages)
+            response = client.make_request(messages, self.debug)
             response_message = client.get_response_message(response)
 
         self.history.append({
@@ -74,12 +76,22 @@ class ChatInstance:
     def process_command(self, command: str):
         print("[CHAT_INSTANCE_PROCESS_COMMAND] Processing command...")
         if(command == "history"):
-            print("[CHAT_INSTANCE_PROCESS_COMMAND] Printing chat history...")
             self.print_history()
+        elif(command == "debug"):
+            self.switch_debug()
         else:
             print(f"[CHAT_INSTANCE_PROCESS_COMMAND] Invalid command ({command}).")
 
 
     def print_history(self):
+        print(f"[CHAT_INSTANCE_PRINT_HISTORY] Printing chat history...")
         for message in self.history:
             print(message)
+
+    def switch_debug(self):
+        if self.debug:
+            print(f"[CHAT_INSTANCE_SWITCH_DEBUG] Debug is now turned OFF.")
+            self.debug = False
+        else:
+            print(f"[CHAT_INSTANCE_SWITCH_DEBUG] Debug is now turned ON.")
+            self.debug = True

@@ -10,6 +10,6 @@ if __name__ == "__main__":
         print()
         response = chatInstance.send(message)
         if response != None:
-            print(response)
+            print("\n"+response)
 
     

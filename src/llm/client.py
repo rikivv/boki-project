@@ -6,30 +6,30 @@ class LLMClient:
     def __init__(self):
         self.url = URL
 
-    def make_request(self, messages: list):
+    def make_request(self, messages: list, debug: bool):
         data = {
             "model": "local-model",
             "messages": messages,
         }
 
-        print("[LLM_CLIENT] Sending message to LLM API...")
+        print("[LLM_CLIENT_MAKE_REQUEST] Sending message to LLM API...")
         response = requests.post(self.url, json=data)
-        print("[LLM_CLIENT] Received message from LLM API.")
+        print("[LLM_CLIENT_MAKE_REQUEST] Received message from LLM API.")
 
-        return response.json()
-    
-    def print_response(self, response, debug: bool = False):
-        print("---------------------------------")
+        response = response.json()
 
         if debug:
-            print()
-            print(response)
-            print()
-            print(self.get_response_timings(response))
-        else:
-            print(self.get_response_message(response))
+            self.print_debug(response)
 
-        print("---------------------------------\n")
+        return response
+    
+    def print_debug(self, response):
+        print("[LLM_CLIENT_PRINT_DEBUG] Printing debug message...")
+        print("========DEBUG_MESSAGE========")
+        print(response)
+        print()
+        print(self.get_response_timings(response))
+        print("=============================")
 
     def get_response_message(self, response):
         return response["choices"][0]["message"]["content"]
