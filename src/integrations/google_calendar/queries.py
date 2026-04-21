@@ -24,16 +24,16 @@ def calendar_get_next_n_events(n: int):
     return events
 
 def calendar_create_event(
-    name: str,
-    startTime: str,
-    endTime: str,
-    color: str = "misc",
-    description: str = "",
-    location: str = "",
-    timezone: str = "Europe/Lisbon",
+        name: str,
+        startTime: str,
+        endTime: str,
+        category: str = "misc",
+        description: str = "",
+        location: str = "",
+        timezone: str = "Europe/Lisbon",
     ):
 
-    colorIndex = COLORS.get(color, 0)
+    colorIndex = COLORS.get(category, 0)
 
     event = {
         "summary": name,

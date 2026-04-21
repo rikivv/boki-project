@@ -8,7 +8,8 @@ if __name__ == "__main__":
     while True:
         message = input("\nUser Prompt: ")
         print()
-        response = chatInstance.send_message(message)
-        print(response)
+        response = chatInstance.send(message)
+        if response != None:
+            print(response)
 
     

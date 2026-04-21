@@ -18,9 +18,15 @@ class ChatInstance:
             {"role": "system", "content": client.build_tool_prompt(TOOLS)},
         ]
 
-    def send_message(self, user_input: str):
+    def send(self, user_input: str):
         user_input = user_input.strip()
 
+        if (user_input[0] == "/"):
+            return self.process_command(user_input[1:])
+
+        return self.send_message(user_input)
+
+    def send_message(self, user_input: str):
         self.history.append({
             "role": "user",
             "content": user_input
@@ -64,3 +70,16 @@ class ChatInstance:
             self.history = self.history[-MAX_HISTORY:]
 
         return response_message
+
+    def process_command(self, command: str):
+        print("[CHAT_INSTANCE_PROCESS_COMMAND] Processing command...")
+        if(command == "history"):
+            print("[CHAT_INSTANCE_PROCESS_COMMAND] Printing chat history...")
+            self.print_history()
+        else:
+            print(f"[CHAT_INSTANCE_PROCESS_COMMAND] Invalid command ({command}).")
+
+
+    def print_history(self):
+        for message in self.history:
+            print(message)
