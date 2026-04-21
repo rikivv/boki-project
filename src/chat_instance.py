@@ -42,7 +42,7 @@ class ChatInstance:
         response = client.make_request(messages)
         response_message = client.get_response_message(response)
 
-        if "<function=" in response_message:
+        while "<function=" in response_message:
             tool_result = toolExecutor.execute(response_message)
 
             self.history.append({
