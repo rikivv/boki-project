@@ -53,6 +53,7 @@ Decide whether a tool is necessary to answer the user's request.
 - Only use a tool if it is clearly required to provide the answer.
 - If the request can be answered directly with your own knowledge, DO NOT use a tool.
 - Do NOT force tool usage.
+- You may call multiple tools in sequence, but NEVER more than one at a time.
 
 If a you choose to call a function ONLY reply in the following format:
 <{{start_tag}}{{function_name}}>{{parameters}}{{end_tag}}
