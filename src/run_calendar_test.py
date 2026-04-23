@@ -1,5 +1,6 @@
 from integrations.google_calendar.client import GoogleCalendarClient
 from integrations.google_calendar import queries
+from datetime import datetime
 
 
 # client = GoogleCalendarClient()
@@ -15,4 +16,4 @@ from integrations.google_calendar import queries
 
 input = "/dsakfjsfaf"
 
-print(input[1:])
+print(f"Today is {datetime.now().astimezone().strftime('%A, %B %d, %Y at %H:%M (%z)')}")

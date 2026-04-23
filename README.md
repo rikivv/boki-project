@@ -30,6 +30,7 @@ and serves as a playground for experimenting with real-world AI applications.
 | LLaMA 3.1 8b Q3 | 25 | ~20 |
 | Qwen 3 8b Q4 | 21-22 | ~15 |
 | Gemma 4 E2B | all | ~73 |
+| Gemma 4 E4B | 41/43 | ~38 |
 
 ## Features
 
