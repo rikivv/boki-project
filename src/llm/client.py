@@ -68,3 +68,52 @@ Here is an example,
 
 If no tool is needed, respond normally in plain text.
 """
+
+    def build_tool_prompt2(self, tools):
+        tool_descriptions = ""
+
+        for tool in tools:
+            tool_descriptions += f"- {tool}\n"
+
+        return f"""
+You have access to the following tools:
+
+{tool_descriptions}
+
+Decide whether a tool is necessary to answer the user's request.
+
+* Only use a tool if it is clearly required to provide the answer.
+* If the request can be answered directly, DO NOT use a tool.
+* Do NOT force tool usage.
+* You may call multiple tools in sequence, but NEVER more than one at a time.
+
+## Tool Call Format
+
+If you decide to call a tool, you MUST respond ONLY with:
+
+<|tool_call|>
+{{"name": "<function_name>", "arguments": {{ ... }}}}
+
+* The response must be valid JSON.
+* Do NOT include any extra text before or after.
+* Do NOT explain the tool call.
+
+## After Tool Execution
+
+You will receive the tool result in the following format:
+
+<|tool_response|>
+{{ ... }}
+
+After receiving a tool response:
+
+* Use the result to continue reasoning.
+* You may call another tool if needed.
+* Otherwise, provide the final answer to the user.
+
+## Important Rules
+
+* NEVER call more than one tool at once.
+* ALWAYS wait for the tool response before calling another tool.
+* If no tool is needed, respond normally in plain text.
+"""

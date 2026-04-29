@@ -14,21 +14,51 @@ class ToolExecutor:
         }
 
     def parse_tool_call(self, response: str):
-        pattern = r"<function=(.*?)>(.*?)</function>"
-        match = re.search(pattern, response)
+        if "<|tool_call|>" in response:
 
-        if not match:
-            return None, None
+            start = response.find("{")
+            if start == -1:
+                return None, None
 
-        function_name = match.group(1).strip()
-        args_str = match.group(2).strip()
+            # brace matching (SAFE JSON extraction)
+            depth = 0
+            end = None
 
-        try:
-            args = json.loads(args_str)
-        except json.JSONDecodeError:
-            raise ValueError("Invalid JSON in tool arguments")
+            for i in range(start, len(response)):
+                if response[i] == "{":
+                    depth += 1
+                elif response[i] == "}":
+                    depth -= 1
+                    if depth == 0:
+                        end = i
+                        break
 
-        return function_name, args
+            if end is None:
+                return None, None
+
+            json_str = response[start:end + 1].strip()
+
+            try:
+                data = json.loads(json_str)
+                return data.get("name"), data.get("arguments", {})
+            except json.JSONDecodeError as e:
+                raise ValueError(f"Invalid JSON in tool call: {json_str}") from e
+
+
+        old_pattern = r"<function=(.*?)>(.*?)</function>"
+        old_match = re.search(old_pattern, response, re.DOTALL)
+
+        if old_match:
+            function_name = old_match.group(1).strip()
+            args_str = old_match.group(2).strip()
+
+            try:
+                args = json.loads(args_str)
+                return function_name, args
+            except json.JSONDecodeError:
+                raise ValueError("Invalid JSON in tool arguments")
+
+        return None, None
 
     def get_function_from_name(self, name: str):
         return self.tool_map.get(name)

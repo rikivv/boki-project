@@ -50,7 +50,7 @@ COLORS = {
     "doctor_appointment": 3,
     "theory_classes": 4,
     "practical_classes": 5,
+    "project_deadlines": 6,
     "other_classes": 7,
-    "project_deadlines": 10,
     "exams_or_tests": 11,
 }
