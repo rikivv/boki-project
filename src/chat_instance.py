@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import json
 
 from llm.client import LLMClient
 from tools.executor import ToolExecutor
@@ -15,10 +16,10 @@ class ChatInstance:
 
         self.system_messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "system", "content": client.build_tool_prompt(TOOLS)},
+            {"role": "system", "content": client.build_tool_prompt2(TOOLS)},
         ]
 
-        self.debug = False
+        self.debug = True
 
     def send(self, user_input: str):
         user_input = user_input.strip()
@@ -44,7 +45,8 @@ class ChatInstance:
         response = client.make_request(messages, self.debug)
         response_message = client.get_response_message(response)
 
-        while "<function=" in response_message:
+        while "<function=" in response_message or "<|tool_call|>" in response_message:
+            print(f"[CHAT_INSTANCE] Tool call: {response_message}")
             tool_result = toolExecutor.execute(response_message)
 
             self.history.append({
@@ -53,8 +55,8 @@ class ChatInstance:
             })
 
             self.history.append({
-                "role": "user",
-                "content": f"Tool result: {tool_result}"
+                "role": "tool",
+                "content": json.dumps(tool_result)
             })
 
             messages = self.system_messages + [current_time_message] + self.history
