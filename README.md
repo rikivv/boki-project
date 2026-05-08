@@ -85,3 +85,7 @@ The system is composed of the following components:
 
 * **Remote Access (VPN)**
   Allows secure external interaction with the assistant.
+
+<div align="center">
+  <img src="assets/readme/Architecture_Diagram.png">
+</div>
