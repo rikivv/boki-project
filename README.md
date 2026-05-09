@@ -18,7 +18,7 @@ and serves as a playground for experimenting with real-world AI applications.
 
 ```bash
 ./llama.cpp/build/bin/llama-server -m models/gemma-4-E2B-it-Q5_K_M.gguf -ngl 99
-./llama.cpp/build/bin/llama-server -m models/gemma-4-E4B-it-Q5_K_M.gguf -ngl 42
+./llama.cpp/build/bin/llama-server -m models/gemma-4-E4B-it-Q5_K_M.gguf -ngl 41
 ./llama.cpp/build/bin/llama-server -m models/Qwen3-8B-Q4_K_M.gguf -ngl 22 
 ```
 
